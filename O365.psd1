@@ -24,10 +24,10 @@ GUID = 'be903b55-c9d6-4e3a-800d-202eb11b9d0e'
 Author = 'Andy'
 
 # Company or vendor of this module
-CompanyName = 'Unknown'
+CompanyName = 'AndyWare'
 
 # Copyright statement for this module
-Copyright = '(c) Andy. All rights reserved.'
+Copyright = '(c) AndyWare. All rights reserved.'
 
 # Description of the functionality provided by this module
 # Description = ''

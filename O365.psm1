@@ -1,4 +1,4 @@
-function Connect-o365{
+function Connect-O365{
     #Uses Function to installed Exchange Online Management
     try {
         Disconnect-ExchangeOnline -Confirm:$false
@@ -26,10 +26,6 @@ function Update-O365Modules{
     update-Module -name ExchangeOnlineManagement -Force
 }
 
-function Get-Licences {
-    Get-MsolAccountSku
-}
-
 function Get-Mailboxes {
     param(
         [string]$value
@@ -39,7 +35,7 @@ function Get-Mailboxes {
 
 }
 
-function createFolderPath {
+function New-FolderPath {
 
         #Folder Path
         $folder = Test-Path -Path "C:\365Module"
@@ -56,7 +52,7 @@ function createFolderPath {
 
 function Get-DelegateFileDownload {
 
-    createFolderPath
+    New-FolderPath
 
     $delegateFile = Test-Path -Path "C:\365Module\delegatePermissions.csv"
     
@@ -125,21 +121,21 @@ function Update-DelegatePermissions {
     }
 }
 
-function Get-AllCommands{
-    Write-Host "
-        Connect-O365
-        Update-O365Modules
-        Get-Mailboxes
-        Get-Licences
-        Get-DelegateFileDownload
-        Update-DelegatePermissions
-        Get-O365Help
-    "
+function New-Account{
+    [CmdletBinding()]
+    param(
+        [parameter(Position=0,mandatory=$true)]
+        [string]$firstname,
+        [parameter(Position=1,mandatory=$true)]
+        [string]$surname,
+        [parameter(Position=2,mandatory=$true)]
+        [string]$email
+    )
+
+    New-Mailbox -Name $firstname -FirstName $firstname -LastName $surname -DisplayName "$($firstname) $($surname)" -MicrosoftOnlineServicesID $email -Password (Read-Host "Enter password" -AsSecureString) -ResetPasswordOnNextLogon $false
 }
 
 Write-Host "
 Office 365 Exchange Online Module Connected
 
-To Get all Commands Type Get-AllCommands"
-
-$(Get-AllCommands)
+To Get all Commands Type: Get-Command -Module O365"
